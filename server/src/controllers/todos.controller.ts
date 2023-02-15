@@ -35,4 +35,36 @@ const createNewTodo = async (req: Request, res: Response) => {
   } catch (error) {}
 };
 
-export { getAllTodos, createNewTodo };
+const updateTodo = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { title, email, progress, date } = req.body;
+
+    await pool.query(
+      `UPDATE todos SET title = $1, email = $2, progress = $3, date = $4 WHERE id = $5`,
+      [title, email, progress, date, id]
+    );
+
+    res.status(200).json({
+      msg: "Todo updated",
+    });
+  } catch (error) {
+    res.status(501).send(error);
+  }
+};
+
+const deleteTodo = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    await pool.query(`DELETE FROM todos WHERE id = $1`, [id]);
+
+    res.status(200).json({
+      msg: "Todo deleted",
+    });
+  } catch (error) {
+    res.status(501).send(error);
+  }
+};
+
+export { getAllTodos, createNewTodo, updateTodo, deleteTodo };

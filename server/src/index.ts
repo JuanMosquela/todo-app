@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // routes
-app.use("/", todosRouter);
+app.use("/api/todos", todosRouter);
 
 app.use("/api/auth", authRouter);
 
