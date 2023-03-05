@@ -1,13 +1,15 @@
-import { FiEdit } from "react-icons/fi";
+import { FiEdit } from "react-icons/Fi";
 import { AiOutlineCalendar } from "react-icons/ai";
-import { useGetTodosByEmailQuery } from "../redux/api/todoApi";
+
 import { CircularProgress } from "@mui/material";
 import TodoItem from "./TodoItem";
+import { useGetTodosByEmailQuery } from "../redux/api/todosApi";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../redux/slices/authSlice";
 
 const TodoList = () => {
-  const { data, error, isLoading } = useGetTodosByEmailQuery(
-    "jmosquella11@gmail.com"
-  );
+  const { email } = useSelector(selectAuth);
+  const { data, error, isLoading } = useGetTodosByEmailQuery(email);
 
   return (
     <div>

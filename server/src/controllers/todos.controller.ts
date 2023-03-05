@@ -5,7 +5,7 @@ import pool from "../config/pg.config";
 
 const getAllTodos = async (req: Request, res: Response) => {
   try {
-    const email = "juanmamosquella@gmail.com";
+    const { email } = req.query;
     const todos = await pool.query("SELECT * FROM todos WHERE email = $1", [
       email,
     ]);
