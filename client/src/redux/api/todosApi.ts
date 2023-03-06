@@ -17,7 +17,27 @@ const authApi = emptyApi
         }),
         invalidatesTags: ["Todo"],
       }),
+      updateTodo: builder.mutation({
+        query: ({ id, ...rest }) => ({
+          url: `/todos/${id}`,
+          method: "PUT",
+          body: rest,
+        }),
+        invalidatesTags: ["Todo"],
+      }),
+      deleteTodo: builder.mutation({
+        query: (id) => ({
+          url: `/todos/${id}`,
+          method: "DELETE",
+        }),
+        invalidatesTags: ["Todo"],
+      }),
     }),
   });
 
-export const { useGetTodosByEmailQuery, useCreateTodoMutation } = authApi;
+export const {
+  useGetTodosByEmailQuery,
+  useCreateTodoMutation,
+  useUpdateTodoMutation,
+  useDeleteTodoMutation,
+} = authApi;

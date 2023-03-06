@@ -35,8 +35,9 @@ const createNewTodo = async (req: Request, res: Response) => {
 
 const updateTodo = async (req: Request, res: Response) => {
   try {
-    const { title } = req.body;
+    const { title, date } = req.body;
     const { id } = req.params;
+    console.log(id, title, date);
 
     await pool.query(`UPDATE todos SET title = $1 WHERE id = $2`, [title, id]);
 

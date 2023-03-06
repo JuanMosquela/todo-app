@@ -1,6 +1,11 @@
 import { useState } from "react";
-import { AiOutlineCalendar } from "react-icons/ai";
+import { AiFillDelete, AiOutlineCalendar } from "react-icons/ai";
+import { BiPencil } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
+import {
+  useDeleteTodoMutation,
+  useUpdateTodoMutation,
+} from "../redux/api/todosApi";
 import Todo from "../types/interfaces.ts";
 
 interface Props {
@@ -9,32 +14,80 @@ interface Props {
 
 const TodoItem = ({ todo }: Props) => {
   const [completed, setCompleted] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+
+  const [editTodo, setEditTodo] = useState(todo.title);
+
+  const [updateTodo, { data, error }] = useUpdateTodoMutation();
+
+  const [deleteTodo, { data: removeData, error: errorData }] =
+    useDeleteTodoMutation();
 
   const handleClick = () => setCompleted((prev) => !prev);
-  console.log(completed);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditTodo(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(editTodo);
+    updateTodo({
+      id: todo.id,
+      title: editTodo,
+      date: Date(),
+    });
+    setEditMode(false);
+  };
+
+  console.log(data, error);
+
   return (
-    <li className="flex justify-between items-center bg-slate-200 p-4 gap-6">
-      <div className="flex items-center gap-6 ">
+    <li className=" items-center bg-slate-200 p-4 gap-6">
+      <div className="flex items-center md:gap-6 gap-4 ">
         <input
           onClick={handleClick}
-          className="w-4 h-4 scale-100 bg-slate-700"
+          className="inline-block w-4 h-4 scale-100 "
           type="checkbox"
           name=""
           id=""
         />
-        <div className="ml-2">
-          <h4 className={` ${completed && "line-through"} text-lg `}>
-            {todo.title.slice(0, 60)}
-          </h4>
-          {/* <span className="flex gap-2 items-center text-blue-500  ">
-            <AiOutlineCalendar />
-            {todo.date}
-          </span> */}
+
+        <div className=" md:ml-2 flex-1 w-full">
+          {!editMode && (
+            <h4
+              className={` ${completed && "line-through"} md:text-lg text-md `}
+            >
+              {todo.title}
+            </h4>
+          )}
+          {editMode && (
+            <form className="block " onSubmit={handleSubmit}>
+              <input
+                className="w-full overflow-auto text-lg  bg-slate-200"
+                type="text"
+                value={editTodo}
+                autoFocus={editTodo ? true : false}
+                onChange={handleChange}
+              />
+            </form>
+          )}
+        </div>
+        <div className="  flex gap-2 items-center">
+          <button
+            className=" md:text-xl text-md "
+            onClick={() => setEditMode(true)}
+          >
+            <BiPencil />
+          </button>
+          <button
+            className="md:text-xl text-md "
+            onClick={() => deleteTodo(todo.id)}
+          >
+            <AiFillDelete />
+          </button>
         </div>
       </div>
-      <button className="text-xl ">
-        <FiEdit />
-      </button>
     </li>
   );
 };

@@ -1,6 +1,3 @@
-import { FiEdit } from "react-icons/Fi";
-import { AiOutlineCalendar } from "react-icons/ai";
-
 import { CircularProgress } from "@mui/material";
 import TodoItem from "./TodoItem";
 import { useGetTodosByEmailQuery } from "../redux/api/todosApi";

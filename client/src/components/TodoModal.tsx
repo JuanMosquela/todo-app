@@ -17,6 +17,7 @@ import { selectAuth } from "../redux/slices/authSlice";
 import { useSelector } from "react-redux";
 import { useCreateTodoMutation } from "../redux/api/todosApi";
 import { AiOutlinePlus } from "react-icons/ai";
+import { FiEdit } from "react-icons/fi";
 
 const TodoModal = () => {
   const auth = useSelector(selectAuth);
@@ -82,19 +83,11 @@ const TodoModal = () => {
 
   return (
     <div className="">
-      {/* {auth.user._id === data.boughtBy && (
-          <button
-            onClick={handleOpen}
-            className=" bg-dark text-white rounded-sm  px-4 py-2 font-bold text-sm uppercase"
-          >
-            write a review
-          </button>
-        )} */}
       <button
         onClick={handleOpen}
         className="flex justify-center items-center  bg-blue text-2xl text-white font-bold w-10 h-10"
       >
-        <AiOutlinePlus />
+        <FiEdit />
       </button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style} className="w-[85%]  md:w-[700px]">
