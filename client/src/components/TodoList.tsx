@@ -18,7 +18,7 @@ const TodoList = () => {
           <CircularProgress size={"2rem"} />
         </div>
       ) : (
-        <ul className="flex flex-col gap-1">
+        <ul className="flex flex-col gap-2">
           {data?.map((todo) => (
             <TodoItem key={todo.id} todo={todo} />
           ))}
