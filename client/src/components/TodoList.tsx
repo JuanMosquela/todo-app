@@ -3,6 +3,7 @@ import TodoItem from "./TodoItem";
 import { useGetTodosByEmailQuery } from "../redux/api/todosApi";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../redux/slices/authSlice";
+import Todo from "../types/interfaces.ts";
 
 const TodoList = () => {
   const { email } = useSelector(selectAuth);
@@ -18,7 +19,7 @@ const TodoList = () => {
         <p>You dont have todos yet</p>
       ) : (
         <ul className="flex flex-col gap-2">
-          {data?.map((todo) => (
+          {data?.map((todo: Todo) => (
             <TodoItem key={todo.id} todo={todo} />
           ))}
         </ul>
