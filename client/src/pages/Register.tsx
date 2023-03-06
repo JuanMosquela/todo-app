@@ -9,10 +9,11 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 import { toast } from "react-toastify";
 import { loginSchemas } from "../schemas/login.shcemas";
-import { useSignInMutation } from "../redux/api/authApi";
+import { useRegisterMutation, useSignInMutation } from "../redux/api/authApi";
 import "../input.css";
+import { registerSchemas } from "../schemas/register.schemas";
 
-const Login = () => {
+const Register = () => {
   const [visible, setVisible] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,31 +23,37 @@ const Login = () => {
   const auth = useSelector(selectAuth);
   const dispatch = useDispatch();
 
-  const [signIn, { data, isLoading, error, isSuccess }] = useSignInMutation();
+  //   const [signIn, { data, isLoading, error, isSuccess }] = useSignInMutation();
+
+  const [register, { data, error, isSuccess, isLoading }] =
+    useRegisterMutation();
 
   const onSubmit = async () => {
     try {
-      await signIn(values);
+      await register(values);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    if (data?.token) {
-      dispatch(setCredentials(data));
+    if (data) {
+      navigate("/login");
       toast.success("Logeado correctamente");
     }
-    if (error) {
-      toast.error(error?.data?.error);
-    }
+    // if (error?.status === 401) {
+    //   toast.error(error.data.msg);
+    // }
+    // if (error?.status === 400) {
+    //   toast.error("Este usuario no existe");
+    // }
 
-    if (auth?.token) navigate(from);
-  }, [isSuccess, error]);
+    // if (auth?.token) navigate(from);
+  }, [isSuccess]);
 
   useEffect(() => {
     console.log(auth);
-    if (auth.token) navigate(from);
+    if (auth?.token) navigate(from);
   }, [auth]);
 
   console.log(data);
@@ -54,10 +61,12 @@ const Login = () => {
   const { values, handleChange, handleSubmit, handleBlur, errors, touched } =
     useFormik({
       initialValues: {
+        first_name: "",
+        last_name: "",
         email: "",
         password: "",
       },
-      validationSchema: loginSchemas,
+      validationSchema: registerSchemas,
       onSubmit,
     });
 
@@ -72,6 +81,40 @@ const Login = () => {
           <h1 className=" text-2xl font-bold text-blue  mb-10 uppercase">
             account login login
           </h1>
+          <div className="relative mb-4 min-h-[100px] ">
+            <h4 className="text-sm font-semibold uppercase mb-2">First Name</h4>
+            <input
+              className="w-full text-md outline-none  bg-slate-200  p-2  "
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.first_name}
+              type="text"
+              name="first_name"
+              placeholder="First Name"
+            />
+            {errors.first_name && touched.first_name && (
+              <p className="pt-2 text-red text-sm font-semibold">
+                {errors.first_name}
+              </p>
+            )}
+          </div>
+          <div className="relative mb-4 min-h-[100px] ">
+            <h4 className="text-sm font-semibold uppercase mb-2">Last Name</h4>
+            <input
+              className="w-full text-md outline-none  bg-slate-200  p-2  "
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.last_name}
+              type="text"
+              name="last_name"
+              placeholder="Last Name"
+            />
+            {errors.last_name && touched.last_name && (
+              <p className="pt-2 text-red text-sm font-semibold">
+                {errors.last_name}
+              </p>
+            )}
+          </div>
 
           <div className="relative mb-4 min-h-[100px] ">
             <h4 className="text-sm font-semibold uppercase mb-2">email</h4>
@@ -120,10 +163,10 @@ const Login = () => {
           </div>
           <div className=" py-4  flex w-full justify-end ">
             <p className="flex gap-2  text-slate text-md font-thin pb-2">
-              Need an Account?
+              Already have an account?
               <br />
               <Link className="text-orange font-semibold" to="/register">
-                Sign Up
+                Sign In
               </Link>
             </p>
           </div>
@@ -141,7 +184,7 @@ const Login = () => {
               </>
             ) : (
               <span className="flex justify-center items-center rounded-md text-sm uppercase w-full h-[40px]  ">
-                Login
+                Register
               </span>
             )}
           </button>
@@ -150,4 +193,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default Register;

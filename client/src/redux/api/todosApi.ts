@@ -5,7 +5,7 @@ const authApi = emptyApi
   .enhanceEndpoints({ addTagTypes: ["Todo"] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      getTodosByEmail: builder.query<Todo[], string>({
+      getTodosByEmail: builder.query({
         query: (email) => `todos?email=${email}`,
         providesTags: ["Todo"],
       }),

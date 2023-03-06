@@ -14,6 +14,8 @@ const TodoList = () => {
         <div className="flex justify-center items-center">
           <CircularProgress size={"2rem"} />
         </div>
+      ) : data?.length == 0 || !data ? (
+        <p>You dont have todos yet</p>
       ) : (
         <ul className="flex flex-col gap-2">
           {data?.map((todo) => (
