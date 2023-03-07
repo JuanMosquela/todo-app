@@ -1,4 +1,3 @@
-import { AiOutlinePlus, AiOutlineUser } from "react-icons/ai";
 import { SlOptions } from "react-icons/Sl";
 import { BiSortAlt2 } from "react-icons/bi";
 import TodoList from "../components/TodoList";
