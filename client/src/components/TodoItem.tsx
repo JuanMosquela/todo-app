@@ -35,11 +35,11 @@ const TodoItem = ({ todo, handleDelete }: Props) => {
   };
 
   return (
-    <li className=" bg-slate-200  p-4 border border-slate-200 rounded-md">
-      <div className="flex items-center md:gap-6 gap-4 ">
+    <li className="p-4  ">
+      <div className="flex items-center md:gap-6 gap-4  ">
         <input
           onClick={handleClick}
-          className="inline-block w-4 h-4 scale-100 "
+          className="  "
           type="checkbox"
           name=""
           id=""
@@ -56,7 +56,7 @@ const TodoItem = ({ todo, handleDelete }: Props) => {
           {editMode && (
             <form className="block " onSubmit={handleSubmit}>
               <input
-                className="w-full outline-none overflow-auto  md:text-lg text-md   bg-slate-200"
+                className="w-full outline-none overflow-auto  md:text-lg text-md   bg-white"
                 type="text"
                 value={editTodo}
                 autoFocus={editTodo ? true : false}
@@ -67,13 +67,13 @@ const TodoItem = ({ todo, handleDelete }: Props) => {
         </div>
         <div className="  flex gap-2 items-center">
           <button
-            className=" md:text-xl text-md "
+            className=" md:text-xl text-md h-10 w-10 flex justify-center items-center "
             onClick={() => setEditMode(true)}
           >
             <BiPencil />
           </button>
           <button
-            className="md:text-xl text-md "
+            className="md:text-xl text-md h-10 w-10 flex justify-center items-center "
             onClick={() => handleDelete(todo.id)}
           >
             <AiFillDelete />

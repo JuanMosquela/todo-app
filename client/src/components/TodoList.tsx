@@ -21,8 +21,6 @@ const TodoList = () => {
   const [deleteTodo, { data: removeData, error: errorData }] =
     useDeleteTodoMutation();
 
-  console.log(data);
-
   const [todos, setTodos] = useState(data);
 
   const handleOnDragEnd = (result: DropResult) => {
@@ -81,7 +79,7 @@ const TodoList = () => {
   }, [data]);
 
   return (
-    <section className="">
+    <section>
       {isLoading ? (
         <div className="flex justify-center items-center">
           <CircularProgress size={"2rem"} />
@@ -93,7 +91,7 @@ const TodoList = () => {
           <Droppable droppableId="todos">
             {(provided) => (
               <ul
-                className="flex flex-col gap-1"
+                className="flex flex-col gap-2 "
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
@@ -105,6 +103,7 @@ const TodoList = () => {
                   >
                     {(provided) => (
                       <article
+                        className=" rounded-md bg-white shadow-md "
                         ref={provided.innerRef}
                         {...provided.dragHandleProps}
                         {...provided.draggableProps}
