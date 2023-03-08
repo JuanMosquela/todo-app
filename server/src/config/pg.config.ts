@@ -5,7 +5,7 @@ import "dotenv/config";
 const pool = new Pool({
   user: "postgres",
   password: process.env.PASSWORD,
-  host: "localhost",
+  host: "******-a.oregon-postgres.render.com",
   port: 5432,
   database: "todo-app",
 });
