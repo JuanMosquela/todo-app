@@ -6,6 +6,7 @@ import generateToken from "../helpers/generate-token";
 const register = async (req: Request, res: Response) => {
   try {
     const { first_name, last_name, email, password } = req.body;
+    console.log(first_name);
 
     const salt = bcrypt.genSaltSync(10);
     const hashed_password = bcrypt.hashSync(password, salt);
@@ -15,11 +16,13 @@ const register = async (req: Request, res: Response) => {
         "INSERT INTO users (first_name, last_name, email, hashed_password) VALUES($1, $2, $3, $4)",
         [first_name, last_name, email, hashed_password]
       );
+      console.log(user);
       res.status(200).json({
         msg: "User registered succesfully",
         user,
       });
     } catch (error) {
+      console.log(error);
       return res.status(400).send({ msg: "algo malo paso" });
     }
   } catch (error) {
@@ -46,7 +49,7 @@ const login = async (req: Request, res: Response) => {
       user.rows[0].hashed_password
     );
 
-    // console.log(check_password);
+    console.log(check_password);
 
     if (!check_password) {
       return res.status(401).json({ msg: "Invalid email or password" });

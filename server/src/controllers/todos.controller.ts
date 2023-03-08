@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { v4 as uuid_v4 } from "uuid";
-
 import pool from "../config/pg.config";
 
 const getAllTodos = async (req: Request, res: Response) => {
@@ -22,22 +21,26 @@ const createNewTodo = async (req: Request, res: Response) => {
 
     const id: string = uuid_v4();
 
-    const todo = pool.query(
-      "INSERT INTO todos (id, email, title, progress, date) VALUES ($1, $2, $3, $4, $5)",
-      [id, email, title, progress, date]
-    );
-
-    res.status(200).json({
-      msg: "Todo Created",
-    });
-  } catch (error) {}
+    try {
+      pool.query(
+        "INSERT INTO todos (id, email, title, progress, date) VALUES ($1, $2, $3, $4, $5)",
+        [id, email, title, progress, date]
+      );
+      res.status(200).json({
+        msg: "Todo Created",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const updateTodo = async (req: Request, res: Response) => {
   try {
     const { title, date } = req.body;
     const { id } = req.params;
-    console.log(id, title, date);
 
     await pool.query(`UPDATE todos SET title = $1 WHERE id = $2`, [title, id]);
 

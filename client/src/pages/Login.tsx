@@ -37,9 +37,9 @@ const Login = () => {
       dispatch(setCredentials(data));
       toast.success("Logeado correctamente");
     }
-    if (error) {
-      toast.error(error?.data?.error);
-    }
+    // if (error) {
+    //   toast.error(error?.data?.error);
+    // }
 
     if (auth?.token) navigate(from);
   }, [isSuccess, error]);

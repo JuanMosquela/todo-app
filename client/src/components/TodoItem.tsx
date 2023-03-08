@@ -56,7 +56,7 @@ const TodoItem = ({ todo, handleDelete }: Props) => {
           {editMode && (
             <form className="block " onSubmit={handleSubmit}>
               <input
-                className="w-full overflow-auto text-lg  bg-slate-200"
+                className="w-full outline-none overflow-auto  md:text-lg text-md   bg-slate-200"
                 type="text"
                 value={editTodo}
                 autoFocus={editTodo ? true : false}

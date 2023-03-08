@@ -1,5 +1,4 @@
-import { AiOutlinePlus, AiOutlineUser } from "react-icons/ai";
-import { SlOptions } from "react-icons/Sl";
+import { IoIosOptions } from "react-icons/io";
 import { BiSortAlt2 } from "react-icons/bi";
 import TodoList from "../components/TodoList";
 import PopUp from "../components/PopUp";
@@ -14,7 +13,7 @@ const Home = () => {
           <div className="flex gap-4">
             <PopUp />
             <button className="flex justify-center items-center text-xl w-10 h-10">
-              <SlOptions />
+              <IoIosOptions />
             </button>
           </div>
         </nav>
