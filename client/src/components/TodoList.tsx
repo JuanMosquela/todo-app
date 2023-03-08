@@ -21,6 +21,8 @@ const TodoList = () => {
   const [deleteTodo, { data: removeData, error: errorData }] =
     useDeleteTodoMutation();
 
+  console.log(data);
+
   const [todos, setTodos] = useState(data);
 
   const handleOnDragEnd = (result: DropResult) => {

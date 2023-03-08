@@ -7,7 +7,7 @@ const pool = new Pool({
   password: process.env.PASSWORD,
   host: "localhost",
   port: 5432,
-  database: "todos",
+  database: "todo-app",
 });
 
 export default pool;
