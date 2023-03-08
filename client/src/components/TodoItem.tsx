@@ -1,27 +1,21 @@
 import { useState } from "react";
-import { AiFillDelete, AiOutlineCalendar } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
 import { BiPencil } from "react-icons/bi";
-import { FiEdit } from "react-icons/fi";
-import {
-  useDeleteTodoMutation,
-  useUpdateTodoMutation,
-} from "../redux/api/todosApi";
+import { useUpdateTodoMutation } from "../redux/api/todosApi";
 import Todo from "../types/interfaces.ts";
 
 interface Props {
   todo: Todo;
+  handleDelete: any;
 }
 
-const TodoItem = ({ todo }: Props) => {
+const TodoItem = ({ todo, handleDelete }: Props) => {
   const [completed, setCompleted] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
   const [editTodo, setEditTodo] = useState(todo.title);
 
   const [updateTodo, { data, error }] = useUpdateTodoMutation();
-
-  const [deleteTodo, { data: removeData, error: errorData }] =
-    useDeleteTodoMutation();
 
   const handleClick = () => setCompleted((prev) => !prev);
 
@@ -40,10 +34,8 @@ const TodoItem = ({ todo }: Props) => {
     setEditMode(false);
   };
 
-  console.log(data, error);
-
   return (
-    <li className=" items-center bg-slate-200 p-4 gap-6">
+    <li className=" bg-slate-200  p-4 border border-slate-200 rounded-md">
       <div className="flex items-center md:gap-6 gap-4 ">
         <input
           onClick={handleClick}
@@ -82,7 +74,7 @@ const TodoItem = ({ todo }: Props) => {
           </button>
           <button
             className="md:text-xl text-md "
-            onClick={() => deleteTodo(todo.id)}
+            onClick={() => handleDelete(todo.id)}
           >
             <AiFillDelete />
           </button>
