@@ -18,14 +18,14 @@ const getAllTodos = async (req: Request, res: Response) => {
 
 const createNewTodo = async (req: Request, res: Response) => {
   try {
-    const { title, progress, email, date } = req.body;
+    const { title, progress, email } = req.body;
 
     const id: string = uuid_v4();
 
     try {
       pool.query(
-        "INSERT INTO todos (id, email, title, progress, date) VALUES ($1, $2, $3, $4, $5)",
-        [id, email, title, progress, date]
+        "INSERT INTO todos (id, email, title, progress) VALUES ($1, $2, $3, $4)",
+        [id, email, title, progress]
       );
       res.status(200).json({
         msg: "Todo Created",
@@ -40,7 +40,7 @@ const createNewTodo = async (req: Request, res: Response) => {
 
 const updateTodo = async (req: Request, res: Response) => {
   try {
-    const { title, date } = req.body;
+    const { title } = req.body;
     const { id } = req.params;
 
     await pool.query(`UPDATE todos SET title = $1 WHERE id = $2`, [title, id]);
