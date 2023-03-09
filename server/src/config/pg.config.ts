@@ -8,6 +8,17 @@ const pool = new Pool({
   host: process.env.HOST,
   port: 5432,
   database: process.env.DATABASE,
+  ssl: true,
 });
+
+pool.connect((error) => {
+  if (error) {
+    return console.log(error);
+  }
+
+  console.log("todo salio bien");
+});
+
+console.log(pool);
 
 export default pool;

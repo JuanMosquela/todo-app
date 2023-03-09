@@ -26,6 +26,7 @@ const register = async (req: Request, res: Response) => {
       return res.status(400).send({ msg: "algo malo paso" });
     }
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 };
