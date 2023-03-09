@@ -3,11 +3,11 @@ const Pool = pg.Pool;
 import "dotenv/config";
 
 const pool = new Pool({
-  user: "postgres",
+  user: process.env.USERNAME,
   password: process.env.PASSWORD,
-  host: "localhost",
+  host: process.env.HOST,
   port: 5432,
-  database: "todo-app",
+  database: process.env.DATABASE,
 });
 
 export default pool;
