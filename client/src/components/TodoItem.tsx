@@ -3,13 +3,13 @@ import { AiFillDelete } from "react-icons/ai";
 import { BiPencil } from "react-icons/bi";
 import { useUpdateTodoMutation } from "../redux/api/todosApi";
 import Todo from "../types/interfaces.ts";
+import ConfirmationModal from "./ConfirmationModal";
 
 interface Props {
   todo: Todo;
-  handleDelete: any;
 }
 
-const TodoItem = ({ todo, handleDelete }: Props) => {
+const TodoItem = ({ todo }: Props) => {
   const [completed, setCompleted] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
@@ -72,12 +72,7 @@ const TodoItem = ({ todo, handleDelete }: Props) => {
           >
             <BiPencil />
           </button>
-          <button
-            className="md:text-xl text-md h-10 w-10 flex justify-center items-center "
-            onClick={() => handleDelete(todo.id)}
-          >
-            <AiFillDelete />
-          </button>
+          <ConfirmationModal id={todo.id} />
         </div>
       </div>
     </li>

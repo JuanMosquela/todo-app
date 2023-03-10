@@ -5,6 +5,7 @@ interface AuthState {
   user: string;
   email: string;
   token: string;
+  mode: string;
 }
 
 const initialState: AuthState = {
@@ -17,6 +18,7 @@ const initialState: AuthState = {
   token: localStorage.getItem("token")
     ? JSON.parse(localStorage.getItem("token") || "")
     : "",
+  mode: "",
 };
 
 const authSlice = createSlice({
@@ -34,6 +36,9 @@ const authSlice = createSlice({
       localStorage.setItem("email", JSON.stringify(email));
       localStorage.setItem("token", JSON.stringify(token));
     },
+    setMode: (state, { payload }) => {
+      state.mode = payload;
+    },
     logout: (state) => {
       state.user = "";
       state.email = "";
@@ -45,5 +50,5 @@ const authSlice = createSlice({
 
 export const selectAuth = (state: RootState) => state.auth;
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, logout, setMode } = authSlice.actions;
 export default authSlice.reducer;

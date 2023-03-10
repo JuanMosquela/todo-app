@@ -38,19 +38,19 @@ const TodoList = () => {
     setTodos(items);
   };
 
-  const handleDelete = (id: string) => {
-    const arrayIdsOrder = JSON.parse(localStorage.getItem("todosOrder") || "");
+  // const handleDelete = (id: string) => {
+  //   const arrayIdsOrder = JSON.parse(localStorage.getItem("todosOrder") || "");
 
-    if (arrayIdsOrder?.length) {
-      const newOrderArray = arrayIdsOrder.filter((todoId: string) => {
-        return todoId !== id;
-      });
+  //   if (arrayIdsOrder?.length) {
+  //     const newOrderArray = arrayIdsOrder.filter((todoId: string) => {
+  //       return todoId !== id;
+  //     });
 
-      localStorage.setItem("todosOrder", JSON.stringify(newOrderArray));
-    }
+  //     localStorage.setItem("todosOrder", JSON.stringify(newOrderArray));
+  //   }
 
-    deleteTodo(id);
-  };
+  //   deleteTodo(id);
+  // };
 
   useEffect(() => {
     const todosArrayOrder = localStorage.getItem("todosOrder")
@@ -108,11 +108,7 @@ const TodoList = () => {
                         {...provided.dragHandleProps}
                         {...provided.draggableProps}
                       >
-                        <TodoItem
-                          key={todo.id}
-                          todo={todo}
-                          handleDelete={handleDelete}
-                        />
+                        <TodoItem key={todo.id} todo={todo} />
                       </article>
                     )}
                   </Draggable>

@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <Provider store={store}>
     <ToastContainer />
+
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>

@@ -12,11 +12,9 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-
 import { selectAuth } from "../redux/slices/authSlice";
 import { useSelector } from "react-redux";
 import { useCreateTodoMutation } from "../redux/api/todosApi";
-import { AiOutlinePlus } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 
 const TodoModal = () => {
@@ -82,7 +80,7 @@ const TodoModal = () => {
   }, [error, data]);
 
   return (
-    <div className="">
+    <>
       <button
         onClick={handleOpen}
         className="flex justify-center items-center  bg-blue text-2xl text-white font-bold w-10 h-10"
@@ -90,8 +88,19 @@ const TodoModal = () => {
         <FiEdit />
       </button>
       <Modal open={open} onClose={handleClose}>
-        <Box sx={style} className="w-[85%]  md:w-[700px]">
-          <form onSubmit={handleSubmit}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            width: { md: "500px", sm: "70%", xs: "90%" },
+            transform: "translate(-50%, -50%)",
+            bgcolor: "#FFF",
+            borderRadius: "10px",
+            p: 4,
+          }}
+        >
+          <form onSubmit={handleSubmit} className="block w-full">
             <h3 className=" text-blue text-2xl font-semibold mb-4">
               Write something to do later
             </h3>
@@ -99,7 +108,7 @@ const TodoModal = () => {
               Write something to do later
             </p>
             <textarea
-              className="bg-gray p-2 text-sm w-full outline-none mt-2 resize-none rounded-md  "
+              className="bg-gray p-2 text-sm w-full outline-none mt-2 resize-none rounded-md   "
               name="textarea"
               rows={7}
               onChange={(e) => setTitle(e.target.value)}
@@ -108,12 +117,12 @@ const TodoModal = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className=" bg-blue hover:bg-blue/90 text-white font-medium  text-md w-[100px] h-[40px] drop-shadow-lg"
+                className=" bg-blue hover:bg-blue/90 text-white font-medium  text-md md:w-[100px] w-full h-[40px] drop-shadow-lg "
               >
                 {isLoading ? (
                   <>
                     <CircularProgress
-                      size="1.5rem"
+                      size="1.2rem"
                       sx={{ color: "rgba(255,255,255)" }}
                     />
                   </>
@@ -125,7 +134,7 @@ const TodoModal = () => {
           </form>
         </Box>
       </Modal>
-    </div>
+    </>
   );
 };
 export default TodoModal;
