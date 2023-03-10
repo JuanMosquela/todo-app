@@ -91,7 +91,7 @@ const TodoList = () => {
           <Droppable droppableId="todos">
             {(provided) => (
               <ul
-                className="flex flex-col gap-2 "
+                className="flex flex-col  "
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
@@ -103,7 +103,7 @@ const TodoList = () => {
                   >
                     {(provided) => (
                       <article
-                        className=" rounded-md bg-white shadow-md "
+                        className=" rounded-md bg-white border border-slate-400 "
                         ref={provided.innerRef}
                         {...provided.dragHandleProps}
                         {...provided.draggableProps}
